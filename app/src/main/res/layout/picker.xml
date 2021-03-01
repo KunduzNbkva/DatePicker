@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pickers"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+ <!-- Month -->
+
+ <com.example.datepicker.NumberPicker
+     android:id="@+id/month_picker"
+     android:layout_width="100dp"
+     android:layout_height="wrap_content"
+     android:layout_marginLeft="7dp"
+     android:layout_marginRight="7dp"
+     android:focusable="true"
+     android:focusableInTouchMode="true" />
+
+ <!-- Day -->
+
+ <com.example.datepicker.NumberPicker
+     android:id="@+id/day_picker"
+     android:layout_width="100dp"
+     android:layout_height="wrap_content"
+     android:layout_marginLeft="7dp"
+     android:layout_marginRight="7dp"
+     android:focusable="true"
+     android:focusableInTouchMode="true" />
+
+
+ <!-- Year -->
+
+ <com.example.datepicker.NumberPicker
+     android:id="@+id/year_picker"
+     android:layout_width="100dp"
+     android:layout_height="wrap_content"
+     android:layout_marginLeft="7dp"
+     android:layout_marginRight="7dp"
+     android:focusable="true"
+     android:focusableInTouchMode="true" />
+</LinearLayout>
+
+
