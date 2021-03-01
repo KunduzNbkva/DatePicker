@@ -2,14 +2,12 @@ package com.example.datepicker;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +17,9 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
-import androidx.annotation.DimenRes;
-import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -272,24 +266,6 @@ public class DatePicker extends BasePicker {
     }
 
     /**
-     * Gets whether the NPickers are shown.
-     *
-     * @return True if the NPickers are shown.
-     */
-    public boolean getspinnersShown() {
-        return mNPickers.isShown();
-    }
-
-    /**
-     * Sets whether the NPickers are shown.
-     *
-     * @param shown True if the NPickers are to be shown.
-     */
-    public void setspinnersShown(boolean shown) {
-        mNPickers.setVisibility(shown ? VISIBLE : GONE);
-    }
-
-    /**
      * Sets the current locale.
      *
      * @param locale The current locale.
@@ -427,7 +403,6 @@ public class DatePicker extends BasePicker {
             outDate.setTime(Objects.requireNonNull(mDateFormat.parse(date)));
             return true;
         } catch (ParseException e) {
-            Log.w(TAG, "Date: " + date + " not in format: MM/dd/yyyy");
             return false;
         }
     }
@@ -539,13 +514,6 @@ public class DatePicker extends BasePicker {
         picker.setImeOptions(imeOptions);
     }
 
-    private void trySetContentDescription(View root, int viewId, int contDescResId) {
-        View target = root.findViewById(viewId);
-        if (target != null) {
-            target.setContentDescription(getContext().getString(contDescResId));
-        }
-    }
-
     private void updateInputState() {
         // Make sure that if the user changes the value and the IME is active
         // for one of the inputs if this widget, the IME is closed. If the user
@@ -639,182 +607,22 @@ public class DatePicker extends BasePicker {
             dest.writeInt(mDay);
         }
     }
-
-    public void setAccessibilityDescriptionEnabled(boolean enabled) {
-        super.setAccessibilityDescriptionEnabled(enabled, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setDividerColor(@ColorInt int color) {
-        super.setDividerColor(color, mYearNPicker, mMonthNPicker, mDayNPicker);
+    public void setSelectedTextColor(@ColorInt int color) {
+        super.setSelectedTextColor(color, mYearNPicker, mMonthNPicker, mDayNPicker);
     }
 
     public void setDividerColorResource(@ColorRes int colorId) {
         super.setDividerColor(ContextCompat.getColor(getContext(), colorId), mYearNPicker, mMonthNPicker, mDayNPicker);
     }
 
-    public void setDividerDistance(int distance) {
-        super.setDividerDistance(distance, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setDividerDistanceResource(@DimenRes int dimenId) {
-        super.setDividerDistanceResource(dimenId, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setDividerType(@NumberPicker.DividerType int dividerType) {
-        super.setDividerType(dividerType, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
 
     public void setDividerThickness(int thickness) {
         super.setDividerThickness(thickness, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setDividerThicknessResource(@DimenRes int dimenId) {
-        super.setDividerThicknessResource(dimenId, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setOrder(@NumberPicker.Order int order) {
-        super.setOrder(order, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setOrientation(@NumberPicker.Orientation int orientation) {
-        super.setOrientation(orientation, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setWheelItemCount(int count) {
-        super.setWheelItemCount(count, mYearNPicker, mMonthNPicker, mDayNPicker);
     }
 
     public void setFormatter(String yearFormatter, String monthFormatter, String dayFormatter) {
         mYearNPicker.setFormatter(yearFormatter);
         mMonthNPicker.setFormatter(monthFormatter);
         mDayNPicker.setFormatter(dayFormatter);
-    }
-
-    public void setFormatter(@StringRes int yearFormatterId, @StringRes int monthFormatterId, @StringRes int dayFormatterId) {
-        mYearNPicker.setFormatter(getResources().getString(yearFormatterId));
-        mMonthNPicker.setFormatter(getResources().getString(monthFormatterId));
-        mDayNPicker.setFormatter(getResources().getString(dayFormatterId));
-    }
-
-    public void setFadingEdgeEnabled(boolean fadingEdgeEnabled) {
-        super.setFadingEdgeEnabled(fadingEdgeEnabled, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setFadingEdgeStrength(float strength) {
-        super.setFadingEdgeStrength(strength, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setScrollerEnabled(boolean scrollerEnabled) {
-        super.setScrollerEnabled(scrollerEnabled, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTextAlign(@NumberPicker.Align int align) {
-        super.setSelectedTextAlign(align, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTextColor(@ColorInt int color) {
-        super.setSelectedTextColor(color, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTextColorResource(@ColorRes int colorId) {
-        super.setSelectedTextColorResource(colorId, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTextSize(float textSize) {
-        super.setSelectedTextSize(textSize, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTextSize(@DimenRes int dimenId) {
-        super.setSelectedTextSize(getResources().getDimension(dimenId), mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTextStrikeThru(boolean strikeThruText) {
-        super.setSelectedTextStrikeThru(strikeThruText, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTextUnderline(boolean underlineText) {
-        super.setSelectedTextUnderline(underlineText, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTypeface(Typeface typeface) {
-        super.setSelectedTypeface(typeface, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTypeface(String string, int style) {
-        super.setSelectedTypeface(string, style, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTypeface(String string) {
-        super.setSelectedTypeface(string, Typeface.NORMAL, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTypeface(@StringRes int stringId, int style) {
-        super.setSelectedTypeface(getResources().getString(stringId), style, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setSelectedTypeface(@StringRes int stringId) {
-        super.setSelectedTypeface(stringId, Typeface.NORMAL, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setTextAlign(@NumberPicker.Align int align) {
-        super.setTextAlign(align, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setTextColor(@ColorInt int color) {
-        super.setTextColor(color, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setTextColorResource(@ColorRes int colorId) {
-        super.setTextColorResource(colorId, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setTextSize(float textSize) {
-        super.setTextSize(textSize, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-
-
-    public void setTextStrikeThru(boolean strikeThruText) {
-        super.setTextStrikeThru(strikeThruText, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setTextUnderline(boolean underlineText) {
-        super.setTextUnderline(underlineText, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setTypeface(Typeface typeface) {
-        super.setTypeface(typeface, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setTypeface(String string, int style) {
-        super.setTypeface(string, style, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setTypeface(String string) {
-        super.setTypeface(string, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setTypeface(@StringRes int stringId, int style) {
-        super.setTypeface(stringId, style, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setTypeface(@StringRes int stringId) {
-        super.setTypeface(stringId, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setLineSpacingMultiplier(float multiplier) {
-        super.setLineSpacingMultiplier(multiplier, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setMaxFlingVelocityCoefficient(int coefficient) {
-        super.setMaxFlingVelocityCoefficient(coefficient, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setImeOptions(int imeOptions) {
-        super.setImeOptions(imeOptions, mYearNPicker, mMonthNPicker, mDayNPicker);
-    }
-
-    public void setItemSpacing(int itemSpacing) {
-        super.setItemSpacing(itemSpacing, mYearNPicker, mMonthNPicker, mDayNPicker);
     }
 }

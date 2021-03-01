@@ -1620,9 +1620,6 @@ public class NumberPicker extends LinearLayout {
      *                 {@link #getMaxValue()} - {@link #getMinValue()} + 1.
      */
     public void setMinValue(int minValue) {
-//        if (minValue < 0) {
-//            throw new IllegalArgumentException("minValue must be >= 0");
-//        }
         mMinValue = minValue;
         if (mMinValue > mValue) {
             mValue = mMinValue;
@@ -1670,14 +1667,6 @@ public class NumberPicker extends LinearLayout {
         invalidate();
     }
 
-    /**
-     * Gets the values to be displayed instead of string values.
-     *
-     * @return The displayed values.
-     */
-    public String[] getDisplayedValues() {
-        return mDisplayedValues;
-    }
 
     /**
      * Sets the values to be displayed.
@@ -2129,19 +2118,6 @@ public class NumberPicker extends LinearLayout {
     }
 
     /**
-     * Starts a smooth scroll to wheel position.
-     *
-     * @param position The wheel position to scroll to.
-     */
-    public void smoothScrollToPosition(int position) {
-        final int currentPosition = getSelectorIndices()[mWheelMiddleItemIndex];
-        if (currentPosition == position) {
-            return;
-        }
-        smoothScroll(position > currentPosition, Math.abs(position - currentPosition));
-    }
-
-    /**
      * Starts a smooth scroll
      *
      * @param increment True to increment, false to decrement.
@@ -2448,25 +2424,9 @@ public class NumberPicker extends LinearLayout {
     private static final char[] DIGIT_CHARACTERS = new char[]{
             // Latin digits are the common case
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-            // Arabic-Indic
-            '\u0660', '\u0661', '\u0662', '\u0663', '\u0664',
-            '\u0665', '\u0666', '\u0667', '\u0668', '\u0669',
-            // Extended Arabic-Indic
-            '\u06f0', '\u06f1', '\u06f2', '\u06f3', '\u06f4',
-            '\u06f5', '\u06f6', '\u06f7', '\u06f8', '\u06f9',
-            // Hindi and Marathi (Devanagari script)
-            '\u0966', '\u0967', '\u0968', '\u0969', '\u096a',
-            '\u096b', '\u096c', '\u096d', '\u096e', '\u096f',
-            // Bengali
-            '\u09e6', '\u09e7', '\u09e8', '\u09e9', '\u09ea',
-            '\u09eb', '\u09ec', '\u09ed', '\u09ee', '\u09ef',
-            // Kannada
-            '\u0ce6', '\u0ce7', '\u0ce8', '\u0ce9', '\u0cea',
-            '\u0ceb', '\u0cec', '\u0ced', '\u0cee', '\u0cef',
             // Negative
             '-'
     };
-
     /**
      * Filter for accepting only valid indices or prefixes of the string
      * representation of valid indices.
@@ -2629,10 +2589,6 @@ public class NumberPicker extends LinearLayout {
         return dp * getResources().getDisplayMetrics().density;
     }
 
-    private float px2dp(float px) {
-        return px / getResources().getDisplayMetrics().density;
-    }
-
     private float sp2px(float sp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
     }
@@ -2669,48 +2625,14 @@ public class NumberPicker extends LinearLayout {
         }
     }
 
-    public void setAccessibilityDescriptionEnabled(boolean enabled) {
-        mAccessibilityDescriptionEnabled = enabled;
-    }
 
     public void setDividerColor(@ColorInt int color) {
         mDividerColor = color;
         mDividerDrawable = new ColorDrawable(color);
     }
 
-    public void setDividerColorResource(@ColorRes int colorId) {
-        setDividerColor(ContextCompat.getColor(mContext, colorId));
-    }
-
-    public void setDividerDistance(int distance) {
-        mDividerDistance = distance;
-    }
-
-    public void setDividerDistanceResource(@DimenRes int dimenId) {
-        setDividerDistance(getResources().getDimensionPixelSize(dimenId));
-    }
-
-    public void setDividerType(@DividerType int dividerType) {
-        mDividerType = dividerType;
-        invalidate();
-    }
-
     public void setDividerThickness(int thickness) {
         mDividerThickness = thickness;
-    }
-
-    public void setDividerThicknessResource(@DimenRes int dimenId) {
-        setDividerThickness(getResources().getDimensionPixelSize(dimenId));
-    }
-
-    /**
-     * Should sort numbers in ascending or descending order.
-     *
-     * @param order Pass {@link #ASCENDING} or {@link #ASCENDING}.
-     *              Default value is {@link #DESCENDING}.
-     */
-    public void setOrder(@Order int order) {
-        mOrder = order;
     }
 
     public void setOrientation(@Orientation int orientation) {
@@ -2737,51 +2659,15 @@ public class NumberPicker extends LinearLayout {
         setFormatter(stringToFormatter(formatter));
     }
 
-    public void setFormatter(@StringRes int stringId) {
-        setFormatter(getResources().getString(stringId));
-    }
-
-    public void setFadingEdgeEnabled(boolean fadingEdgeEnabled) {
-        mFadingEdgeEnabled = fadingEdgeEnabled;
-    }
-
-    public void setFadingEdgeStrength(float strength) {
-        mFadingEdgeStrength = strength;
-    }
-
-    public void setScrollerEnabled(boolean scrollerEnabled) {
-        mScrollerEnabled = scrollerEnabled;
-    }
-
-    public void setSelectedTextAlign(@Align int align) {
-        mSelectedTextAlign = align;
-    }
-
     @SuppressLint("ResourceAsColor")
     public void setSelectedTextColor(@ColorInt int color) {
         mSelectedTextColor = color;
         mSelectedText.setTextColor(mSelectedTextColor);
     }
 
-    public void setSelectedTextColorResource(@ColorRes int colorId) {
-        setSelectedTextColor(ContextCompat.getColor(mContext, colorId));
-    }
-
     public void setSelectedTextSize(float textSize) {
         mSelectedTextSize = textSize;
         mSelectedText.setTextSize(px2sp(mSelectedTextSize));
-    }
-
-    public void setSelectedTextSize(@DimenRes int dimenId) {
-        setSelectedTextSize(getResources().getDimension(dimenId));
-    }
-
-    public void setSelectedTextStrikeThru(boolean strikeThruText) {
-        mSelectedTextStrikeThru = strikeThruText;
-    }
-
-    public void setSelectedTextUnderline(boolean underlineText) {
-        mSelectedTextUnderline = underlineText;
     }
 
     public void setSelectedTypeface(Typeface typeface) {
@@ -2802,21 +2688,11 @@ public class NumberPicker extends LinearLayout {
         setSelectedTypeface(Typeface.create(string, style));
     }
 
-    public void setSelectedTypeface(String string) {
-        setSelectedTypeface(string, Typeface.NORMAL);
-    }
 
     public void setSelectedTypeface(@StringRes int stringId, int style) {
         setSelectedTypeface(getResources().getString(stringId), style);
     }
 
-    public void setSelectedTypeface(@StringRes int stringId) {
-        setSelectedTypeface(stringId, Typeface.NORMAL);
-    }
-
-    public void setTextAlign(@Align int align) {
-        mTextAlign = align;
-    }
 
     @SuppressLint("ResourceAsColor")
     public void setTextColor(@ColorInt int color) {
@@ -2824,25 +2700,10 @@ public class NumberPicker extends LinearLayout {
         mSelectorWheelPaint.setColor(mTextColor);
     }
 
-    public void setTextColorResource(@ColorRes int colorId) {
-        setTextColor(ContextCompat.getColor(mContext, colorId));
-    }
 
     public void setTextSize(float textSize) {
         mTextSize = textSize;
         mSelectorWheelPaint.setTextSize(mTextSize);
-    }
-
-    public void setTextSize(@DimenRes int dimenId) {
-        setTextSize(getResources().getDimension(dimenId));
-    }
-
-    public void setTextStrikeThru(boolean strikeThruText) {
-        mTextStrikeThru = strikeThruText;
-    }
-
-    public void setTextUnderline(boolean underlineText) {
-        mTextUnderline = underlineText;
     }
 
     public void setTypeface(Typeface typeface) {
@@ -2862,34 +2723,12 @@ public class NumberPicker extends LinearLayout {
         setTypeface(Typeface.create(string, style));
     }
 
-    public void setTypeface(String string) {
-        setTypeface(string, Typeface.NORMAL);
-    }
-
     public void setTypeface(@StringRes int stringId, int style) {
         setTypeface(getResources().getString(stringId), style);
     }
 
-    public void setTypeface(@StringRes int stringId) {
-        setTypeface(stringId, Typeface.NORMAL);
-    }
-
-    public void setLineSpacingMultiplier(float multiplier) {
-        mLineSpacingMultiplier = multiplier;
-    }
-
-    public void setMaxFlingVelocityCoefficient(int coefficient) {
-        mMaxFlingVelocityCoefficient = coefficient;
-        mMaximumFlingVelocity = mViewConfiguration.getScaledMaximumFlingVelocity()
-                / mMaxFlingVelocityCoefficient;
-    }
-
     public void setImeOptions(int imeOptions) {
         mSelectedText.setImeOptions(imeOptions);
-    }
-
-    public void setItemSpacing(int itemSpacing) {
-        mItemSpacing = itemSpacing;
     }
 
     public boolean isHorizontalMode() {
@@ -2900,22 +2739,6 @@ public class NumberPicker extends LinearLayout {
         return getOrder() == ASCENDING;
     }
 
-    public boolean isAccessibilityDescriptionEnabled() {
-        return mAccessibilityDescriptionEnabled;
-    }
-
-    public int getDividerColor() {
-        return mDividerColor;
-    }
-
-    public float getDividerDistance() {
-        return px2dp(mDividerDistance);
-    }
-
-    public float getDividerThickness() {
-        return px2dp(mDividerThickness);
-    }
-
     public int getOrder() {
         return mOrder;
     }
@@ -2924,76 +2747,9 @@ public class NumberPicker extends LinearLayout {
         return mOrientation;
     }
 
-    public int getWheelItemCount() {
-        return mWheelItemCount;
-    }
-
-    public Formatter getFormatter() {
-        return mFormatter;
-    }
-
-    public boolean isFadingEdgeEnabled() {
-        return mFadingEdgeEnabled;
-    }
-
-    public float getFadingEdgeStrength() {
-        return mFadingEdgeStrength;
-    }
-
     public boolean isScrollerEnabled() {
         return mScrollerEnabled;
     }
 
-    public int getSelectedTextAlign() {
-        return mSelectedTextAlign;
-    }
-
-    public int getSelectedTextColor() {
-        return mSelectedTextColor;
-    }
-
-    public float getSelectedTextSize() {
-        return mSelectedTextSize;
-    }
-
-    public boolean getSelectedTextStrikeThru() {
-        return mSelectedTextStrikeThru;
-    }
-
-    public boolean getSelectedTextUnderline() {
-        return mSelectedTextUnderline;
-    }
-
-    public int getTextAlign() {
-        return mTextAlign;
-    }
-
-    public int getTextColor() {
-        return mTextColor;
-    }
-
-    public float getTextSize() {
-        return sp2px(mTextSize);
-    }
-
-    public boolean getTextStrikeThru() {
-        return mTextStrikeThru;
-    }
-
-    public boolean getTextUnderline() {
-        return mTextUnderline;
-    }
-
-    public Typeface getTypeface() {
-        return mTypeface;
-    }
-
-    public float getLineSpacingMultiplier() {
-        return mLineSpacingMultiplier;
-    }
-
-    public int getMaxFlingVelocityCoefficient() {
-        return mMaxFlingVelocityCoefficient;
-    }
 
 }
